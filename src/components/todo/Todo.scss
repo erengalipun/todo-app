@@ -1,0 +1,305 @@
+$color1: #f1dac4;
+$color2: #a69cac;
+$color3: #474973;
+$color4: #161b33;
+$color5: #0d0c1d;
+$font-family: "Afacad Flux", sans-serif;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  color: $color5;
+  background-color: $color1;
+
+  &.dark-mode {
+    color: $color1;
+    background-color: $color5;
+  }
+}
+
+$breakpoints: (
+  mobile: 364px,
+  tablet: 768px,
+  desktop: 1024px,
+);
+
+@mixin respond($breakpoint) {
+  @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: $color2;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 2px inset;
+
+  &.dark-mode {
+    background-color: $color4;
+  }
+
+  .logo {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  h3 {
+    color: $color3;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0 auto;
+    flex-grow: 1;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+      background: none;
+      border: none;
+      color: $color3;
+      cursor: pointer;
+
+      &:hover {
+        color: $color4;
+      }
+    }
+
+    input[type="search"] {
+      width: 100%;
+      padding: 0.4rem;
+      border: 1px solid $color3;
+      border-radius: 5px;
+    }
+  }
+}
+
+.task-form {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: $color2;
+  border-radius: 8px;
+  border: 2px inset;
+
+  &.dark-mode {
+    background-color: $color4;
+  }
+
+  label {
+    font-weight: bold;
+    color: $color4;
+    display: block;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid $color3;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: $color3;
+    color: $color1;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    margin-top: 11px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: $color4;
+    }
+  }
+}
+
+.filter-sort {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: $color2;
+  color: $color5;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 2px inset;
+
+  &.dark-mode {
+    background-color: $color4;
+  }
+
+  div {
+    display: flex;
+
+    label {
+      color: $color5;
+      font-weight: bold;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin: 0 0.3rem;
+    }
+
+    &.dark-mode {
+      label {
+        color: $color1;
+      }
+    }
+  }
+
+  section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    button {
+      background-color: $color3;
+      color: $color1;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: $color4;
+      }
+    }
+  }
+}
+
+.task-list {
+  label {
+    font-weight: bold;
+    color: $color4;
+    cursor: pointer;
+  }
+
+  .task {
+    background-color: $color2;
+    color: $color5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: default;
+
+    .task-title {
+      display: flex;
+      justify-content: space-between;
+
+      &.expired > * {
+        color: red;
+      }
+
+      &.completed > * {
+        color: green;
+      }
+    }
+
+    &.dark-mode {
+      background-color: $color4;
+    }
+
+    .task-info {
+      display: flex;
+      flex-direction: column;
+      color: $color5;
+      gap: 0.5rem;
+      margin: 1rem 0;
+
+      div > span {
+        margin-right: 0.5rem;
+      }
+
+      .text {
+        word-break: break-word;
+        max-width: 100%;
+      }
+    }
+
+    button {
+      background-color: $color3;
+      color: $color1;
+      border: none;
+      padding: 0.3rem 0.7rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: $color4;
+      }
+    }
+  }
+}
+
+@include respond(mobile) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .logo {
+    width: 40px;
+  }
+
+  .task-list,
+  .filter-sort,
+  .task-form {
+    max-width: 100%;
+  }
+}
+
+@include respond(tablet) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .filter-sort {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@include respond(desktop) {
+  header {
+    padding: 1rem 2rem;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: auto;
+  }
+}
